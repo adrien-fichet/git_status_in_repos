@@ -1,5 +1,4 @@
 import os
-import unittest
 import git_status_in_repos as gsir
 from subprocess import call
 from pathlib import Path

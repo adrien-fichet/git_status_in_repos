@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "git_status_in_repos"
 version = "0.1.0"
-description = ""
+description = "Get the status of all git repositories in a given directory."
 authors = ["Adrien Fichet <adrien.fichet@gmail.com>"]
 readme = "README.md"
 packages = [{include = "git_status_in_repos"}]

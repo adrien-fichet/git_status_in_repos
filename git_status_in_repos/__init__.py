@@ -5,8 +5,8 @@ import sys
 import os.path
 import argparse
 import subprocess
+import colorama
 from termcolor import cprint
-from pathlib import PurePath
 
 
 def setup_argument_parser():
@@ -36,17 +36,17 @@ def search_for_git_repos_in_dir(directory):
     print(f"Searching for git repositories in {directory}...")
 
     git_repos = []
-    for root, dirs, files in os.walk(directory):
+    for root, dirs, _ in os.walk(directory):
         if ".git" in dirs:
             git_repos.append(root)
 
-    print(f"Found {len(git_repos)} git repositories")
+    print(f"Found {len(git_repos)} git repositories.")
     return git_repos
 
 
 def git_status_in_dir(repo):
     """Print the git status of the given repository"""
-    cprint(f"➡ Git status in {repo}: ", attrs=("bold",), end="")
+    cprint(f"➔ {repo}: ", attrs=("bold",), end="")
     status = subprocess.check_output("git status -s", cwd=repo, shell=True).decode()
     if status == "":
         cprint("[OK]", "green")
@@ -59,13 +59,10 @@ def git_status_in_dir(repo):
 
 def main():
     """Program entry point"""
+    colorama.init()
     parser = setup_argument_parser()
     directory = get_directory_from_args(parser) 
     git_repos = search_for_git_repos_in_dir(directory)
 
     for repo in git_repos:
-        status = git_status_in_dir(repo)
-
-
-if __name__ == "__main__":
-    main()
+        git_status_in_dir(repo)
